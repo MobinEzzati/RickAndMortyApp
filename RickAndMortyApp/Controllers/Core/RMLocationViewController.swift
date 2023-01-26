@@ -6,6 +6,7 @@
 //
 
 import UIKit
+// controller to show Location
 
 final class RMLocationViewController: UIViewController {
 

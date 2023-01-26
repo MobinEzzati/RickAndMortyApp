@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// controller to show character 
 final class RMCharacterViewController: UIViewController {
 
     override func viewDidLoad() {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+// controller to show Setting 
 
 final class RMSettingViewController: UIViewController {
 
