@@ -8,22 +8,26 @@
 import UIKit
 // controller to show character 
 final class RMCharacterViewController: UIViewController {
-
+    
+    
+    
+    private let characterList = CharacterListView ()
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         title = "Character"
+        view.backgroundColor = .systemBackground 
+
+        view.addSubview(characterList)
+        viewConstraint()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+  private  func viewConstraint() {
+        NSLayoutConstraint.activate([
+            characterList.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            characterList.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            characterList.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            characterList.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.bottomAnchor),
+        ])
     }
-    */
 
 }

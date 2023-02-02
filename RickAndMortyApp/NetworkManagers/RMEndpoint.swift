@@ -7,9 +7,9 @@
 
 import Foundation
 // Represent uniq api
-@frozen enum RMEndpoint {
+@frozen enum RMEndpoint : String , Codable  {
 // endpoint to get Character info
-   case character
+   case character 
     // endpoint to get locaation info
    case location
 //    endpoint to get episode info 
