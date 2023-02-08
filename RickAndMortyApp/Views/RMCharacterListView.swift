@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-final class CharacterListView: UIView{
+final class RMCharacterListView: UIView{
 
     
     
-    private let viewModel = CharacterListViewModel()
+    private let viewModel = RMCharacterListViewModel()
     
     
     private let spinner: UIActivityIndicatorView = {
@@ -24,14 +24,15 @@ final class CharacterListView: UIView{
     
     private let collectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 5, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isHidden = true
         collectionView.alpha = 0
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(
-            UICollectionViewCell.self,
-            forCellWithReuseIdentifier: "cell")
+            RMCharacterCollectionViewCell.self,
+            forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier
+        )
         return collectionView
     }()
     
@@ -42,6 +43,7 @@ final class CharacterListView: UIView{
         
         addSubviews(spinner, collectionView)
         viewModel.fetchCharacters()
+        viewModel.delegate = self
         setUpConstraint()
         setCollectionView()
 
@@ -73,14 +75,11 @@ final class CharacterListView: UIView{
        
        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
            
-           self.spinner.stopAnimating()
-           self.collectionView.isHidden = false
-         
-           UIView.animate(withDuration: 0.4) {
-               self.collectionView.alpha = 1
-           }
+        
            
-       })
+       }
+       
+       )
         
     }
     
@@ -88,4 +87,18 @@ final class CharacterListView: UIView{
     
 }
 
-
+extension RMCharacterListView : RMCharacterListViewModelDelegate {
+    func didLoadCharacters() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.spinner.stopAnimating()
+            self.collectionView.isHidden = false
+            
+            UIView.animate(withDuration: 0.4) {
+                self.collectionView.alpha = 1
+            }
+        }
+        
+        
+    }
+}

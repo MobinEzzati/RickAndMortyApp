@@ -11,7 +11,7 @@ final class RMCharacterViewController: UIViewController {
     
     
     
-    private let characterList = CharacterListView ()
+    private let characterList = RMCharacterListView ()
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Character"
