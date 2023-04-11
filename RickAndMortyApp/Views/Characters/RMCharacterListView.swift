@@ -8,9 +8,15 @@
 import Foundation
 import UIKit
 
+protocol RMCharacterListViewDelegate : AnyObject {
+    func rmCharacterListView(
+        _ characterListView: RMCharacterListView,
+          didSelectCharacter character: RMCharacter
+    )
+}
 final class RMCharacterListView: UIView{
 
-    
+    public weak var delegate: RMCharacterListViewDelegate?
     
     private let viewModel = RMCharacterListViewModel()
     
@@ -33,6 +39,9 @@ final class RMCharacterListView: UIView{
             RMCharacterCollectionViewCell.self,
             forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier
         )
+        collectionView.register(RMFooterLoadingCollectionReusableView.self,
+                                forSupplementaryViewOfKind:UICollectionView.elementKindSectionFooter,
+                                withReuseIdentifier:RMFooterLoadingCollectionReusableView.identifier)
         return collectionView
     }()
     
@@ -88,6 +97,16 @@ final class RMCharacterListView: UIView{
 }
 
 extension RMCharacterListView : RMCharacterListViewModelDelegate {
+    func didLoadMoreCharacters(with newIndexPath: [IndexPath]) {
+        collectionView.performBatchUpdates {
+            self.collectionView.insertItems(at: newIndexPath)
+        }
+    }
+    
+    func didSelectCharacter(_ character: RMCharacter) {
+        delegate?.rmCharacterListView(self, didSelectCharacter: character)
+    }
+    
     func didLoadCharacters() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
@@ -98,7 +117,7 @@ extension RMCharacterListView : RMCharacterListViewModelDelegate {
                 self.collectionView.alpha = 1
             }
         }
-        
-        
     }
+    
+    
 }

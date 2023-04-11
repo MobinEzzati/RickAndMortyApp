@@ -16,7 +16,6 @@ class RMCharacterCollectionViewCell: UICollectionViewCell {
     
         image.translatesAutoresizingMaskIntoConstraints = false
         image.clipsToBounds = true
-//        image.co
         return image
     }()
     
@@ -24,6 +23,7 @@ class RMCharacterCollectionViewCell: UICollectionViewCell {
     private let nameLable: UILabel = {
         let lable = UILabel()
         lable.font = .systemFont(ofSize: 18, weight: .regular)
+        lable.numberOfLines = 8
         lable.translatesAutoresizingMaskIntoConstraints = false
 
         return lable
@@ -91,7 +91,7 @@ class RMCharacterCollectionViewCell: UICollectionViewCell {
         viewModel.fetchImage {[weak self ] result in
             switch result {
             case .success(let data):
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     self?.imageView.image = UIImage(data: data)
                 }
             case .failure(let error):

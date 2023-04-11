@@ -17,6 +17,6 @@ struct Info : Codable {
 struct RMGetCharacterRespone: Codable {
  
     let info: Info
-    let results:[RMcharacter]
+    let results:[RMCharacter]
 }
 
