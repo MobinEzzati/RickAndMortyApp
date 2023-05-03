@@ -10,7 +10,9 @@ import UIKit
 final class RMCharacterDetailViewViewModel {
     private let character: RMCharacter
     
-    
+    public var episodes: [String]{
+        character.episode
+    }
     enum SectionTypes {
         case photo(viewModel:RMCharacterPhotoCollectionViewCellViewModel)
         case information(viewModel:[RMCharacterInfoCollectionViewCellViewModel])
@@ -62,7 +64,8 @@ final class RMCharacterDetailViewViewModel {
         RMservices.shared.execute(request, expecting: RMCharacter.self) { result in
             switch result {
             case .success(let success):
-                print( String(describing: success))
+//                print( String(describing: success))
+                print(" ")
             case .failure(let failure):
                 print( String(describing: failure))
 

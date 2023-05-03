@@ -90,7 +90,6 @@ final class RMRequest {
                 })
                 
                 if let rmEndpoint = RMEndpoint(rawValue: endpointString){
-                    print("endPoint is \(rmEndpoint)")
                     self.init(endpoint: rmEndpoint , queryParameters:queryItems)
                     return
                 }
@@ -106,7 +105,6 @@ final class RMRequest {
                 
                 let   endpoint = components[0]
                 if let rmEndpoint = RMEndpoint(rawValue: endpoint){
-                    print("trimmed :\(trimmed)")
 
                     self.init(endpoint: rmEndpoint , pathComponents: pathComponents)
                     return

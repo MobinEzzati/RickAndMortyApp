@@ -82,6 +82,7 @@ extension RMCharacterDetailViewController : UICollectionViewDelegate, UICollecti
             cell.configure(with: viewModel[indexPath.row])
 
             return cell
+            
         case .episodes(let viewModel):
             guard let cell = collectionView
                 .dequeueReusableCell(
@@ -90,10 +91,25 @@ extension RMCharacterDetailViewController : UICollectionViewDelegate, UICollecti
                     as? RMCharacterEpisodeCollectionViewCell else{
                 fatalError()
             }
-            cell.configure(with: viewModel[indexPath.row])
+            let viewModel = viewModel[indexPath.row]
+            cell.configure(with: viewModel)
             return cell
         }
         
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let sectionType = viewModel.sections[indexPath.section]
+        switch sectionType {
+        case .information, .photo:
+            break
+        case .episodes:
+            let episode = self.viewModel.episodes[indexPath.row]
+            let vc = EpisodeDetailViewController(url: URL(string: episode))
+            navigationController?.pushViewController(vc, animated: true)
+            
+            
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

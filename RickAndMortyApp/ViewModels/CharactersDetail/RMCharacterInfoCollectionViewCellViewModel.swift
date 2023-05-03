@@ -31,9 +31,6 @@ final class RMCharacterInfoCollectionViewCellViewModel {
     public var displayValue:String {
         if value == "" {return "None"}
         
-        if type == .created{
-            print("format:\(value)")
-        }
         if let date = Self.dateFormater.date(from: value),
            type == .created {
 
